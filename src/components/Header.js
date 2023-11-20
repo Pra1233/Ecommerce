@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Button } from "react-bootstrap";
 import "./Header.css";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <>
       <Nav className="justify-content-center header ">
@@ -21,7 +21,7 @@ const Header = () => {
             About
           </Nav.Link>
         </Nav.Item>
-        <Button variant="success" size="sm">
+        <Button variant="success" size="sm" onClick={props.onshowCart}>
           Cart
         </Button>
       </Nav>

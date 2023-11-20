@@ -1,0 +1,40 @@
+.li {
+  list-style: none;
+  margin: 1rem;
+  display: flex;
+  border: 1px solid black;
+  padding: 0.7rem;
+}
+
+.image {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid black;
+}
+.price {
+  font-size: large;
+  font-weight: bolder;
+  justify-content: center;
+  margin-top: 2.4rem;
+  margin-left: 1rem;
+  width: fit-content;
+}
+
+.quantity {
+  font-size: large;
+  font-weight: bolder;
+  justify-content: center;
+  margin-top: 2.4rem;
+  margin-left: 1rem;
+  border: 1px solid black;
+  padding: 0.6rem;
+  width: fit-content;
+}
+
+.button {
+  width: fit-content;
+  height: 2.2rem;
+  margin-top: 3rem;
+  margin-left: 1rem;
+  text-align: center;
+}
