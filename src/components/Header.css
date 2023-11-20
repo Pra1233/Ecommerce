@@ -1,0 +1,21 @@
+.header {
+  background-color: black;
+  border: 1px solid white;
+}
+
+.nav {
+  color: white;
+  font-size: large;
+}
+.head-2 {
+  background-color: grey;
+  height: 20vh;
+  border: 1px solid white;
+}
+
+.head-2 h1 {
+  text-align: center;
+  padding-top: 1rem;
+  color: white;
+  font-size: 4rem;
+}
