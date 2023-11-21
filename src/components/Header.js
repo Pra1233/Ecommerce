@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Nav, Button } from "react-bootstrap";
+import CartContext from "../store/cart-context";
 import "./Header.css";
 
 const Header = (props) => {
+  const cartCtx = useContext(CartContext);
+  let quantity = 0;
+  cartCtx.items.forEach((i) => {
+    quantity += +i.quantity;
+  });
   return (
     <>
       <Nav className="justify-content-center header ">
@@ -23,6 +29,7 @@ const Header = (props) => {
         </Nav.Item>
         <Button variant="success" size="sm" onClick={props.onshowCart}>
           Cart
+          <span>{quantity}</span>
         </Button>
       </Nav>
       <div className="head-2">
