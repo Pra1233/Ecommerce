@@ -1,52 +1,44 @@
-import React, { useState } from "react";
-import Cart from "./components/Cart";
-import Header from "./components/Header";
-import Main from "./components/Main";
-import CartProvider from "./store/CartProvider";
-import {
-  createBrowserRouter,
-  // createRoutesFromElements,
-  RouterProvider,
-  // Route,
-} from "react-router-dom";
+import React from "react";
 
-import Home from "./components/pages/Home";
-import About from "./components/pages/About";
-import Store from "./components/pages/Store";
-
-const router = createBrowserRouter([
-  { path: "/Home", element: <Home /> },
-  { path: "/About", element: <About /> },
-  { path: "/Store", element: <Store /> },
-]);
-
-// const routeDefination = createRoutesFromElements(
-//   <Route>
-//     <Route path="/home" element={<Home />} />
-//     <Route path="/about" element={<About />} />
-//     <Route path="/store" element={<Store />} />
-//   </Route>
-// );
-// const router = createBrowserRouter(routeDefination);
+import MoviesList from "./components/MoviesList";
+import "./App.css";
+import { useState } from "react";
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
 
-  const showCartHandler = () => {
-    setShowCart(true);
-  };
 
-  const disableCartHandler = () => {
-    setShowCart(false);
-  };
+  const [movies, setMovies] = useState([]);
+
+  async function fetchMoviesHandler() {
+    try {
+      const res = await fetch("https://swapi.dev/api/films/");
+      const data = await res.json();
+
+      const transformedMovies = data.results.map((m) => {
+        return {
+          id: m.episode_id,
+          title: m.title,
+          openingText: m.opening_crawl,
+          releaseData: m.release_date,
+        };
+      });
+
+      console.log(data);
+      setMovies(transformedMovies);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
-    <CartProvider>
-      {showCart && <Cart onClose={disableCartHandler} />}
-      <Header onshowCart={showCartHandler} />
-      <Main />
-      <RouterProvider router={router} />
-    </CartProvider>
+    <React.Fragment>
+      <section>
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+      </section>
+      <section>
+        <MoviesList movies={movies} />
+      </section>
+    </React.Fragment>
   );
 }
 
