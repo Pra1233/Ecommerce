@@ -13,17 +13,17 @@ const Header = (props) => {
     <>
       <Nav className="justify-content-center header ">
         <Nav.Item className="col-3">
-          <Nav.Link href="/home" className="nav">
+          <Nav.Link href="/Home" className="nav">
             Home
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className="col-3">
-          <Nav.Link eventKey="/store" className="nav">
+          <Nav.Link href="/Store" className="nav">
             Store
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className="col-2">
-          <Nav.Link eventKey="/about" className="nav">
+          <Nav.Link href="/About" className="nav">
             About
           </Nav.Link>
         </Nav.Item>
