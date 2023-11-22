@@ -1,25 +1,27 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
 import MoviesList from "./components/MoviesList";
 import Load from "./components/Load";
 import "./App.css";
-import { useState } from "react";
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const clearid = useRef(null);
 
   const stopFetching = () => {
     clearInterval(clearid.current);
   };
 
-  async function fetchMoviesHandler() {
+  // async function fetchMoviesHandler() {
+  const fetchMoviesHandler = useCallback(async () => {
+    //function not recreated unnecessary
     try {
       setIsLoading(true);
       setError(null);
-      const res = await fetch("https://swapi.dev/api/films/aa");
+      const res = await fetch("https://swapi.dev/api/films/");
       const data = await res.json();
 
       if (!res.ok) {
@@ -52,7 +54,12 @@ function App() {
       console.log(e.message);
     }
     setIsLoading(false);
-  }
+  }, []);
+
+  // useEffect(fetchMoviesHandler, [fetchMoviesHandler]); //calling once initially because we keep depencies empty[]
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]); // when function changes but it go to infinite loop so useCallback to store function and recreate only if function changes
 
   return (
     <React.Fragment>
