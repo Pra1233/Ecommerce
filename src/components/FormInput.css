@@ -1,0 +1,15 @@
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+
+  margin-left: 30%;
+}
+
+label {
+  font-size: large;
+  font-weight: bold;
+  margin: 0.5rem;
+}

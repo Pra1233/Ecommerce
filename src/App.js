@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import MoviesList from "./components/MoviesList";
 import Load from "./components/Load";
 import "./App.css";
+import FormInput from "./components/FormInput";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -28,7 +29,7 @@ function App() {
         if (!clearid.current) {
           clearid.current = setInterval(() => {
             console.log("first");
-            fetchMoviesHandler();
+            fetchMoviesHandler(); //again call  5sec interval
           }, 5000);
           throw new Error("Something went wrong ...Retrying");
         }
@@ -66,6 +67,7 @@ function App() {
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
+      <FormInput />
       <section>
         {loading && <Load />}
         {!loading && <MoviesList movies={movies} />}
