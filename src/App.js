@@ -4,6 +4,7 @@ import MoviesList from "./components/MoviesList";
 import Load from "./components/Load";
 import "./App.css";
 import FormInput from "./components/FormInput";
+import axios from "axios";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -22,8 +23,13 @@ function App() {
     try {
       setIsLoading(true);
       setError(null);
-      const res = await fetch("https://swapi.dev/api/films/");
+      const res = await fetch(
+        //get
+        "https://app-react-3eb95-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json"
+      );
+
       const data = await res.json();
+      // console.log(res, data, "dsfsdd");
 
       if (!res.ok) {
         if (!clearid.current) {
@@ -38,17 +44,18 @@ function App() {
         clearInterval(clearid.current);
         clearid.current = null;
       }
-      const transformedMovies = data.results.map((m) => {
-        return {
-          id: m.episode_id,
-          title: m.title,
-          openingText: m.opening_crawl,
-          releaseData: m.release_date,
-        };
-      });
+      // IMPORTANT
+      const loadedMovies = [];
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          text: data[key].text,
+          date: data[key].date,
+        });
+      }
 
-      console.log(data);
-      setMovies(transformedMovies);
+      setMovies(loadedMovies);
       setIsLoading(false);
     } catch (e) {
       console.log(e);
@@ -62,6 +69,13 @@ function App() {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]); // when function changes but it go to infinite loop so useCallback to store function and recreate only if function changes
 
+  console.log(movies, "movies");
+
+  function DeleteItem(id) {
+    const arr = movies.filter((movie) => movie.id !== id);
+    setMovies(arr);
+  }
+
   return (
     <React.Fragment>
       <section>
@@ -70,7 +84,7 @@ function App() {
       <FormInput />
       <section>
         {loading && <Load />}
-        {!loading && <MoviesList movies={movies} />}
+        {!loading && <MoviesList movies={movies} deleteMovie={DeleteItem} />}
         {!loading && error && <p>{error}</p>}
         <button onClick={stopFetching}>STOP</button>
       </section>
