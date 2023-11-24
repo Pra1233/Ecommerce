@@ -13,18 +13,23 @@ const Header = (props) => {
     <>
       <Nav className="justify-content-center header ">
         <Nav.Item className="col-3">
-          <Nav.Link href="/Home" className="nav">
+          <Nav.Link href="/home" className="nav">
             Home
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className="col-3">
-          <Nav.Link href="/Store" className="nav">
+          <Nav.Link href="/store" className="nav">
             Store
           </Nav.Link>
         </Nav.Item>
         <Nav.Item className="col-2">
-          <Nav.Link href="/About" className="nav">
+          <Nav.Link href="/about" className="nav">
             About
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item className="col-2">
+          <Nav.Link href="/contactus" className="nav">
+            ContactUs
           </Nav.Link>
         </Nav.Item>
         <Button variant="success" size="sm" onClick={props.onshowCart}>

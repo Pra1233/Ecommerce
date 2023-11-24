@@ -1,0 +1,11 @@
+.row {
+  background-color: black;
+}
+
+.col {
+  text-align: center;
+}
+
+.onlink {
+  color: red;
+}
