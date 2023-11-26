@@ -6,3 +6,12 @@
 .zoom:hover img {
   transform: scale(1.1);
 }
+
+.span {
+  font-size: large;
+  font-weight: bold;
+  margin-right: 2rem;
+}
+.product_deatail_link {
+  color: red;
+}

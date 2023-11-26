@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+
 import Cart from "./components/Cart";
-import Header from "./components/Header";
-import Head from "./components/UI/Head";
+import Head from "./components/Head";
 import Main from "./components/Main";
-import CartProvider from "./store/CartProvider";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import Home from "./components/pages/Home";
 import About from "./components/pages/About";
+import Home from "./components/pages/Home";
 import Store from "./components/pages/Store";
-
-// const router = createBrowserRouter([
-//   { path: "/Home", element: <Home /> },
-//   { path: "/About", element: <About /> },
-//   { path: "/Store", element: <Store /> },
-// ]);
+import ContactUs from "./components/pages/ContactUs";
+import ProductDetail from "./components/ProductDetail";
+import NotFound from "./components/pages/NotFound";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -30,12 +24,32 @@ function App() {
 
   return (
     <>
-      <CartProvider>
-        {/* <RouterProvider router={router} /> */}
-        {showCart && <Cart onClose={disableCartHandler} />}
-        <Head onshowCart={showCartHandler} />
-        <Main />
-      </CartProvider>
+      <Head onshowCart={showCartHandler} />
+      {showCart && <Cart onClose={disableCartHandler} />}
+      <Switch>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/about">
+          <About />
+        </Route>
+        <Route exact path="/store">
+          <Store />
+        </Route>
+        <Route exact path="/contactus">
+          <ContactUs />
+        </Route>
+        <Route exact path="/productDetail/:id">
+          <ProductDetail />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
+      </Switch>
     </>
   );
 }

@@ -1,9 +1,12 @@
 import React from "react";
-import CardList from "./CardList";
-import { Button } from "react-bootstrap";
+const { useState } = require("react");
+const ProductContext = React.createContext({
+  products: [],
+  updateProducts: () => {},
+});
 
-const Main = () => {
-  const products = [
+export const ProductProvider = (props) => {
+  const [products, setProducts] = useState([
     {
       id: "1",
       title: "Colors",
@@ -35,26 +38,20 @@ const Main = () => {
       imageUrl:
         "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
     },
-  ];
+  ]);
+
+  const values = {
+    products: products,
+    updateProducts: () => {
+      setProducts([]);
+    },
+  };
 
   return (
-    <React.Fragment>
-      <div className="d-flex   justify-content-evenly flex-wrap">
-        {products.map((item) => (
-          <CardList
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            price={item.price}
-            imageUrl={item.imageUrl}
-          />
-        ))}
-      </div>
-      <Button variant="success" className="d-block mx-auto mt-5" size="xl">
-        Show Cart
-      </Button>
-    </React.Fragment>
+    <ProductContext.Provider value={values}>
+      {props.children}
+    </ProductContext.Provider>
   );
 };
 
-export default Main;
+export default ProductContext;

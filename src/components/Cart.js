@@ -23,7 +23,7 @@ const Cart = (props) => {
             title={i.title}
             price={i.price}
             quantity={i.quantity}
-            image={i.image}
+            imageUrl={i.imageUrl}
           />
         ))}
       </div>

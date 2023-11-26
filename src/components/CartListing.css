@@ -6,7 +6,7 @@
   padding: 0.7rem;
 }
 
-.image {
+.cart_image {
   width: 3rem;
   height: 3rem;
   border: 1px solid black;
@@ -43,7 +43,7 @@
   text-align: center;
 }
 .btn-div {
-  background-color: green;
+  background-color: rgb(8, 232, 8);
   margin-top: 3rem;
   width: 2rem;
   height: 2rem;

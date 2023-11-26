@@ -22,8 +22,8 @@ const CartListing = (props) => {
     <li className="li">
       <div>
         <h6 className="title">{props.title}</h6>
-        {console.log(typeof props.image, "dsffffffffff", props)}
-        <img src={props.image} alt="img.jpg" className="image" />
+
+        <img src={props.imageUrl} alt="img.jpg" className="cart_image" />
       </div>
 
       <div className="price">${props.price}</div>

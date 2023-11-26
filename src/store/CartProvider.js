@@ -5,11 +5,12 @@ const CartProvider = (props) => {
   const [item, setItem] = useState([]);
 
   const addItemsFunction = (newitem) => {
+    console.log(newitem, "new");
     setItem((item) => {
       const index = item.findIndex((i) => i.id === newitem.id);
-      console.log(index, "SAaaaaaaaaaa");
+
       if (index >= 0) {
-        item[index].quantity = +item[index].quantity + newitem.quantity;
+        item[index].quantity = +item[index].quantity + 1;
         return [...item];
       }
 

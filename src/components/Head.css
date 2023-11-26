@@ -1,0 +1,22 @@
+.row {
+  background-color: black;
+}
+
+.col {
+  text-align: center;
+}
+
+.onlink {
+  color: red;
+}
+
+.btn_quantity {
+  margin-left: 1rem;
+  background-color: rgb(10, 212, 141);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: large;
+  font-weight: bold;
+  border-radius: 1rem;
+  border: 1px solid black;
+}
