@@ -1,8 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  const authCtx = useContext(AuthContext);
+
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,44 +15,50 @@ const AuthForm = () => {
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
   };
+
   const sendDataHandler = async (e) => {
     e.preventDefault();
-
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
     setIsLoading(true);
+    let url;
+    if (isLogin) {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBVs60kT1EZCPtYuPeZu1Y6-7mBgKwJnfM";
+    } else {
+      url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBVs60kT1EZCPtYuPeZu1Y6-7mBgKwJnfM";
+    }
+
     try {
-      if (isLogin) {
+      const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setIsLoading(false);
+      if (res.ok) {
+        const data = await res.json();
+        authCtx.login(data.idToken);
       } else {
-        const res = await fetch(
-          "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBVs60kT1EZCPtYuPeZu1Y6-7mBgKwJnfM",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: email,
-              password: password,
-              returnSecureToken: true,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setIsLoading(false);
-        if (res.ok) {
-        } else {
-          const data = await res.json();
-          console.log(data, "data");
-          let errorMessage = "Authenticaton Failed";
-          if (data.error.message) {
-            errorMessage = data.error.message;
-          }
-          console.log(errorMessage);
-          alert(errorMessage);
+        const data = await res.json();
+        let errorMessage = isLogin ? "Login Failed" : "Signup Failed";
+        if (data.error.message) {
+          errorMessage = data.error.message;
         }
+
+        throw new Error(errorMessage);
       }
     } catch (e) {
       console.log(e);
+      alert(e.message);
     }
   };
   return (
