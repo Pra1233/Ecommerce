@@ -10,6 +10,9 @@
   color: red;
 }
 
+.header {
+  height: 7dvh;
+}
 .btn_quantity {
   margin-left: 1rem;
   background-color: rgb(10, 212, 141);
@@ -19,4 +22,22 @@
   font-weight: bold;
   border-radius: 1rem;
   border: 1px solid black;
+}
+.btn_cart {
+  width: 1rem;
+}
+.btn_logout {
+  border-radius: 2rem;
+  margin-left: 1.2rem;
+  border: 1px solid black;
+}
+.home {
+  margin-left: 3rem;
+}
+.head-2 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(36, 211, 5);
+  color: blueviolet;
+
+  text-align: center;
 }

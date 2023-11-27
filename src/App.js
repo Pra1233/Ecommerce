@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import Cart from "./components/Cart";
 import Head from "./components/Head";
 import Main from "./components/Main";
 import About from "./components/pages/About";
 import Home from "./components/pages/Home";
-import Store from "./components/pages/Store";
 import ContactUs from "./components/pages/ContactUs";
 import ProductDetail from "./components/ProductDetail";
 import NotFound from "./components/pages/NotFound";
+import AuthForm from "./components/Auth/AuthForm";
+import AuthContext from "./store/auth-context";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const showCartHandler = () => {
     setShowCart(true);
@@ -28,23 +30,34 @@ function App() {
       {showCart && <Cart onClose={disableCartHandler} />}
       <Switch>
         <Route path="/" exact>
-          <Main />
+          {authCtx.isLoggedIn && <Main />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
 
+        {!authCtx.isLoggedIn && (
+          <Route exact path="/login">
+            <AuthForm />
+          </Route>
+        )}
         <Route exact path="/home">
-          <Home />
+          {authCtx.isLoggedIn && <Home />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route exact path="/about">
-          <About />
+          {authCtx.isLoggedIn && <About />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route exact path="/store">
-          <Store />
+          {authCtx.isLoggedIn && <Main />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route exact path="/contactus">
-          <ContactUs />
+          {authCtx.isLoggedIn && <ContactUs />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route exact path="/productDetail/:id">
-          <ProductDetail />
+          {authCtx.isLoggedIn && <ProductDetail />}
+          {!authCtx.isLoggedIn && <Redirect to="/login" />}
         </Route>
         <Route path="*">
           <NotFound />

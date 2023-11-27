@@ -8,14 +8,17 @@ import { ProductProvider } from "./store/product-context";
 //React Bootstrap Configuration
 
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import { AuthContextProvider } from "./store/auth-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <AuthContextProvider>
     <ProductProvider>
       <CartProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </CartProvider>
     </ProductProvider>
-  </BrowserRouter>
+  </AuthContextProvider>
 );
