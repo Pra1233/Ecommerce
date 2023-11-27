@@ -1,10 +1,12 @@
 import { useState, useRef, useContext } from "react";
 import AuthContext from "../../store/auth-context";
+import { useHistory } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
 
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,7 @@ const AuthForm = () => {
       if (res.ok) {
         const data = await res.json();
         authCtx.login(data.idToken);
+        history.replace("/");
       } else {
         const data = await res.json();
         let errorMessage = isLogin ? "Login Failed" : "Signup Failed";

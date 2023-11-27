@@ -1,9 +1,11 @@
 import { useContext, useRef } from "react";
 import AuthContext from "../../store/auth-context";
 import classes from "./ProfileForm.module.css";
+import { useHistory } from "react-router-dom";
 
 const ProfileForm = () => {
   const authCtx = useContext(AuthContext);
+  const history = useHistory();
   const newPassswordInput = useRef();
 
   const submitHandler = async (e) => {
@@ -26,6 +28,8 @@ const ProfileForm = () => {
         const data = await res.json();
 
         authCtx.login(data.idToken);
+        alert("Successful changed Password");
+        history.replace("/");
       } else {
         let errorMsg = "Password Changed Failed";
         const data = await res.json();
